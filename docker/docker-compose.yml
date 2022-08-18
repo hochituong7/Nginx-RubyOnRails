@@ -1,0 +1,22 @@
+version: '2'
+volumes:
+  db-data:
+    external: false
+services:
+  app:
+    container_name: app_ror6
+    image: app
+    build: ./app
+    command: bash -c "bundle install && yarn install --check-files && bundle exec rails s -p 3001 -b '0.0.0.0'"
+    volumes:
+      - ../:/todos-app
+    ports:
+      - 3001:3001
+  nginx:
+    container_name: nginx_server
+    image: nginx
+    build: ./nginx
+    ports:
+      - 80:80
+    depends_on:
+      - app
