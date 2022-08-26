@@ -1,1 +1,1 @@
-FROM postgres
+FROM mysql:5.7
